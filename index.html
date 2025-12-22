@@ -27,25 +27,26 @@
         }
     </script>
     <style>
-        .handwritten { font-family: 'Playfair Display', serif; font-style: italic; }
-        /* Smooth scrolling */
         html { scroll-behavior: smooth; }
+        .fade-in { animation: fadeIn 0.5s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body class="bg-brand-beige text-gray-800 font-sans antialiased">
 
     <header class="relative bg-brand-dark text-white overflow-hidden">
-        <div class="absolute inset-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1629032355262-d75e128e6c4f?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center"></div>
+        <div class="absolute inset-0 opacity-30 bg-[url('https://images.unsplash.com/photo-1629032355262-d75e128e6c4f?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center"></div>
+        
         <div class="relative max-w-7xl mx-auto px-4 py-24 sm:px-6 lg:px-8 flex flex-col items-center text-center">
-            <h1 class="text-5xl md:text-7xl font-serif mb-4">HopeLink Bracelets</h1>
-            <p class="text-xl md:text-2xl font-light mb-8 max-w-2xl">
+            <h1 class="text-5xl md:text-7xl font-serif mb-4 tracking-wide">HopeLink Bracelets</h1>
+            <p class="text-xl md:text-2xl font-light mb-8 max-w-2xl text-gray-200">
                 One bracelet = one month of care for a child at <span class="font-semibold text-brand-gold">Rumah Hope</span>.
             </p>
-            <div class="flex gap-4">
-                <a href="#order" class="bg-white text-brand-dark px-8 py-3 rounded-full font-bold hover:bg-brand-gold hover:text-white transition duration-300">
+            <div class="flex flex-col sm:flex-row gap-4">
+                <a href="#order" class="bg-brand-gold text-white px-8 py-3 rounded-full font-bold hover:bg-yellow-600 transition duration-300 shadow-lg">
                     Buy Hope (RM 10)
                 </a>
-                <button onclick="openMeasureModal()" class="border border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white/10 transition">
+                <button onclick="openMeasureModal()" class="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white/10 transition">
                     Find My Size
                 </button>
             </div>
@@ -53,96 +54,170 @@
     </header>
 
     <section class="py-16 px-4 max-w-5xl mx-auto">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl font-serif text-brand-dark mb-4">What if a bracelet could change a life?</h2>
-            <p class="text-lg text-gray-600 leading-relaxed">
-                Handmade by the children of Rumah Hope, each HopeLink bracelet is a symbol of resilience. 
-                100% of profits go directly toward providing shelter, education, and essential support for the children.
+        <div class="text-center mb-16">
+            <h2 class="text-3xl font-serif text-brand-dark mb-4">Handmade with Heart</h2>
+            <p class="text-lg text-gray-600 leading-relaxed max-w-2xl mx-auto">
+                These bracelets are crafted by the children of Rumah Hope. Each bead represents a moment of creativity and joy. 
+                100% of profits go directly toward their shelter, education, and daily needs.
             </p>
         </div>
         
-        <div id="order" class="bg-white rounded-2xl shadow-xl overflow-hidden md:flex max-w-4xl mx-auto">
-            <div class="md:w-1/2 h-64 md:h-auto bg-gray-200 relative">
+        <div id="order" class="bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row max-w-5xl mx-auto">
+            
+            <div class="md:w-1/2 h-64 md:h-auto bg-gray-100 relative group">
                 <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover">
+                <div class="absolute top-4 left-4 bg-white/90 backdrop-blur text-brand-dark px-4 py-2 rounded-lg font-bold shadow-sm">
+                    RM 10.00
+                </div>
             </div>
-            <div class="md:w-1/2 p-8 flex flex-col justify-center">
-                <h3 class="text-2xl font-serif text-brand-dark">The HopeLink Custom</h3>
-                <p class="text-gray-500 mb-4">Custom-fit to your wrist size.</p>
-                <div class="text-3xl font-bold text-brand-green mb-6">RM 10.00</div>
+
+            <div class="md:w-1/2 p-8 relative bg-white">
                 
-                <div class="space-y-3">
-                    <button onclick="openMeasureModal()" class="w-full py-3 border-2 border-brand-green text-brand-green rounded-lg font-semibold hover:bg-brand-green hover:text-white transition">
-                        Step 1: Measure Wrist (No Ruler?)
-                    </button>
-                    <a href="https://forms.google.com/YOUR-FORM-LINK-HERE" target="_blank" class="block w-full text-center py-3 bg-brand-dark text-white rounded-lg font-bold hover:bg-black transition shadow-lg">
-                        Step 2: Order Now
+                <div id="successMessage" class="hidden absolute inset-0 bg-white z-20 flex flex-col items-center justify-center text-center p-8 fade-in">
+                    <div class="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-4xl mb-6 shadow-sm">✓</div>
+                    <h3 class="text-2xl font-serif text-brand-dark mb-2">Order Submitted!</h3>
+                    <p class="text-gray-600 mb-8">Please send your payment receipt to complete your order.</p>
+                    
+                    <a href="https://wa.me/60123456789?text=Hi%20HopeLink,%20I%20just%20placed%20an%20order!%20Here%20is%20my%20receipt." target="_blank" class="w-full bg-green-500 text-white px-6 py-4 rounded-xl font-bold hover:bg-green-600 transition flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.151-.174.2-.297.3-.495.099-.198.05-.372-.025-.52-.075-.149-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                        Send Receipt Now
                     </a>
                 </div>
-                <p class="text-xs text-gray-400 mt-4 text-center">Secure order via Google Forms</p>
+
+                <form id="hopeForm" 
+                      action="https://docs.google.com/forms/u/0/d/e/YOUR_FORM_ID_HERE/formResponse" 
+                      method="POST" 
+                      target="hidden_iframe"
+                      onsubmit="showSuccess()">
+                      
+                    <h3 class="text-2xl font-serif text-brand-dark mb-1">Make a difference</h3>
+                    <p class="text-sm text-gray-500 mb-6">Fill in your details to secure your bracelet.</p>
+
+                    <div class="space-y-5">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Full Name</label>
+                            <input type="text" name="entry.123456" required class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 focus:border-brand-green focus:ring-2 focus:ring-green-100 outline-none transition" placeholder="e.g. Sarah Lee">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">WhatsApp Number</label>
+                            <input type="tel" name="entry.234567" required class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 focus:border-brand-green focus:ring-2 focus:ring-green-100 outline-none transition" placeholder="e.g. 012-3456789">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1 flex justify-between items-center">
+                                Wrist Size (cm)
+                                <button type="button" onclick="openMeasureModal()" class="text-brand-green text-xs hover:underline font-bold flex items-center gap-1">
+                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg>
+                                    Use Measurement Tool
+                                </button>
+                            </label>
+                            <input type="text" id="formSizeInput" name="entry.345678" required class="w-full bg-yellow-50 border border-yellow-200 text-yellow-800 rounded-lg px-4 py-3 focus:border-brand-gold outline-none transition font-medium" placeholder="Click tool above or type size">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Delivery Address</label>
+                            <textarea name="entry.456789" required class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 focus:border-brand-green focus:ring-2 focus:ring-green-100 outline-none transition h-24 resize-none" placeholder="College name, Block, Room number..."></textarea>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full mt-8 bg-brand-dark text-white py-4 rounded-xl font-bold hover:bg-black transition shadow-lg text-lg">
+                        Place Order (RM 10)
+                    </button>
+                    <p class="text-xs text-center text-gray-400 mt-3">Payment details will be provided via WhatsApp.</p>
+                </form>
+
+                <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
             </div>
         </div>
     </section>
 
-    <div id="measureModal" class="fixed inset-0 bg-black/80 z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-xl w-full max-w-md p-6 relative">
-            <button onclick="closeMeasureModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">✕</button>
+    <footer class="bg-brand-dark text-white/60 py-8 text-center text-sm">
+        <p>HopeLink Project • Universiti Malaya • Semester 1 2024/2025</p>
+    </footer>
+
+    <div id="measureModal" class="fixed inset-0 bg-black/90 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-white rounded-2xl w-full max-w-md p-6 relative shadow-2xl overflow-y-auto max-h-[90vh]">
+            <button onclick="closeMeasureModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-800 p-2 text-xl font-bold">✕</button>
             
-            <h3 class="text-xl font-bold text-brand-dark mb-2">Find Your Size</h3>
+            <h3 class="text-xl font-serif font-bold text-brand-dark mb-1">Find Your Fit</h3>
+            <p class="text-xs text-gray-500 mb-6">No ruler? No problem. Use a card to calibrate.</p>
             
-            <div id="step1">
-                <p class="text-sm text-gray-600 mb-4">We need to calibrate your screen. Grab a standard credit card (or student ID) and place it on the screen.</p>
-                
-                <div class="flex justify-center mb-6">
-                    <div id="cardRef" class="h-32 bg-blue-600 rounded-lg shadow-lg flex items-center justify-center text-white/50 text-sm tracking-widest relative" style="width: 250px;">
-                        CREDIT CARD
-                        <div class="absolute -bottom-6 w-full text-center text-black text-xs">Adjust slider until width matches card ⮕</div>
+            <div id="step1" class="flex flex-col items-center">
+                <div class="w-full flex justify-center py-4 bg-gray-50 rounded-xl border border-gray-100 mb-4">
+                    <div id="cardRef" class="bg-blue-600 rounded-lg shadow-xl flex flex-col items-center justify-center text-white/80 relative transition-all duration-75" style="width: 250px; height: 158px;">
+                        <div class="absolute top-4 left-4 w-8 h-5 bg-yellow-400 rounded opacity-80"></div>
+                        <div class="text-xs tracking-widest mt-8 font-mono">**** **** **** 1234</div>
+                        <div class="absolute bottom-2 text-[10px] opacity-50">Standard Credit/ID Card</div>
                     </div>
                 </div>
 
-                <input type="range" min="150" max="450" value="250" class="w-full accent-brand-green mb-6" id="calibrator" oninput="updateWidth(this.value)">
+                <p class="text-sm font-semibold text-brand-green mb-2 text-center">
+                    1. Place your actual card on the screen. <br>
+                    2. Adjust slider until the blue box matches your card size.
+                </p>
+
+                <input type="range" min="150" max="450" value="250" class="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-brand-green mb-6" id="calibrator" oninput="updateWidth(this.value)">
                 
-                <button onclick="goToStep2()" class="w-full bg-brand-dark text-white py-3 rounded-lg font-bold"> It Matches! Show Ruler </button>
+                <button onclick="goToStep2()" class="w-full bg-brand-dark text-white py-3 rounded-xl font-bold hover:bg-black transition shadow-md">
+                    It Matches! Show Ruler
+                </button>
             </div>
 
             <div id="step2" class="hidden text-center">
-                <p class="text-sm text-gray-600 mb-4">Wrap a string/paper around your wrist, mark the overlap, and lay it here.</p>
+                <p class="text-sm text-gray-600 mb-6 px-4">
+                    Wrap a string around your wrist, pinch the spot where it overlaps, and lay it on this ruler.
+                </p>
                 
-                <div class="overflow-x-auto mb-6 border border-gray-300 rounded bg-yellow-50 h-24 relative flex items-end" id="rulerContainer">
+                <div class="overflow-x-auto mb-8 border-b-2 border-brand-dark bg-yellow-50 relative h-28 flex items-end select-none" id="rulerContainer">
                     </div>
 
-                <div class="text-brand-green font-bold text-lg mb-4">Your Size: <span id="sizeResult">--</span> cm</div>
-                <button onclick="closeMeasureModal()" class="w-full border border-gray-300 text-gray-600 py-2 rounded-lg">Done</button>
+                <div class="bg-brand-beige p-4 rounded-xl mb-4">
+                    <p class="text-xs text-gray-500 uppercase tracking-widest mb-1">Your Size</p>
+                    <div class="text-brand-green font-bold text-3xl"><span id="sizeResult">0</span> cm</div>
+                </div>
+
+                <div class="flex gap-2">
+                    <button onclick="resetMeasure()" class="flex-1 px-4 py-3 border border-gray-300 rounded-xl text-gray-600 font-semibold hover:bg-gray-50">Back</button>
+                    <button onclick="saveSize()" class="flex-1 px-4 py-3 bg-brand-green text-white rounded-xl font-bold hover:bg-brand-dark shadow-md">Use This Size</button>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Constants
-        const CARD_WIDTH_MM = 85.6; // Standard ISO ID-1 size
+        const CARD_WIDTH_MM = 85.6; 
         let pixelsPerMm = 0;
 
         function updateWidth(val) {
-            document.getElementById('cardRef').style.width = val + 'px';
+            const card = document.getElementById('cardRef');
+            card.style.width = val + 'px';
+            // Maintain aspect ratio of credit card (1.586)
+            card.style.height = (val / 1.586) + 'px';
         }
 
         function openMeasureModal() {
             document.getElementById('measureModal').classList.remove('hidden');
         }
+        
         function closeMeasureModal() {
             document.getElementById('measureModal').classList.add('hidden');
         }
 
+        function resetMeasure() {
+            document.getElementById('step2').classList.add('hidden');
+            document.getElementById('step1').classList.remove('hidden');
+        }
+
         function goToStep2() {
-            // Calculate scale
             const currentWidthPx = document.getElementById('calibrator').value;
             pixelsPerMm = currentWidthPx / CARD_WIDTH_MM;
             
-            // Generate Ruler
             const ruler = document.getElementById('rulerContainer');
-            ruler.innerHTML = ''; // clear
+            ruler.innerHTML = ''; 
             
-            // Create ticks for 20cm
-            for(let i=0; i<=200; i++) { // i is mm
+            // Generate 20cm ruler
+            for(let i=0; i<=200; i++) { 
                 const tick = document.createElement('div');
                 const isCm = i % 10 === 0;
                 const isHalf = i % 5 === 0;
@@ -151,22 +226,25 @@
                 tick.style.left = (i * pixelsPerMm) + 'px';
                 tick.style.bottom = '0';
                 tick.style.width = '1px';
-                tick.style.backgroundColor = 'black';
+                tick.style.backgroundColor = '#064e3b'; // brand-dark
                 
                 if (isCm) {
-                    tick.style.height = '20px';
-                    // Add label
+                    tick.style.height = '24px';
+                    tick.style.width = '2px';
                     const label = document.createElement('span');
                     label.innerText = i/10;
                     label.style.position = 'absolute';
                     label.style.left = (i * pixelsPerMm - 4) + 'px';
-                    label.style.bottom = '22px';
-                    label.style.fontSize = '10px';
+                    label.style.bottom = '28px';
+                    label.style.fontSize = '12px';
+                    label.style.fontWeight = 'bold';
+                    label.style.color = '#064e3b';
                     ruler.appendChild(label);
                 } else if (isHalf) {
-                    tick.style.height = '12px';
+                    tick.style.height = '14px';
                 } else {
-                    tick.style.height = '6px';
+                    tick.style.height = '8px';
+                    tick.style.opacity = '0.5';
                 }
                 
                 ruler.appendChild(tick);
@@ -174,6 +252,22 @@
             
             document.getElementById('step1').classList.add('hidden');
             document.getElementById('step2').classList.remove('hidden');
+        }
+
+        function saveSize() {
+            // Just a placeholder interaction, user reads ruler visually
+            // Ideally they type it in, but here we just close modal and focus the input
+            closeMeasureModal();
+            const input = document.getElementById('formSizeInput');
+            input.focus();
+            input.placeholder = "Type the size you saw on the ruler";
+        }
+
+        function showSuccess() {
+            setTimeout(() => {
+                document.getElementById('hopeForm').classList.add('opacity-0');
+                document.getElementById('successMessage').classList.remove('hidden');
+            }, 800);
         }
     </script>
 </body>
