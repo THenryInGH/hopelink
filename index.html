@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HopeLink Bracelets | Wear Hope</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            green: '#047857', // Emerald 700
+                            dark: '#064e3b',  // Emerald 900
+                            beige: '#f5f5f4', // Stone 100
+                            gold: '#d97706'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .handwritten { font-family: 'Playfair Display', serif; font-style: italic; }
+        /* Smooth scrolling */
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body class="bg-brand-beige text-gray-800 font-sans antialiased">
+
+    <header class="relative bg-brand-dark text-white overflow-hidden">
+        <div class="absolute inset-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1629032355262-d75e128e6c4f?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center"></div>
+        <div class="relative max-w-7xl mx-auto px-4 py-24 sm:px-6 lg:px-8 flex flex-col items-center text-center">
+            <h1 class="text-5xl md:text-7xl font-serif mb-4">HopeLink Bracelets</h1>
+            <p class="text-xl md:text-2xl font-light mb-8 max-w-2xl">
+                One bracelet = one month of care for a child at <span class="font-semibold text-brand-gold">Rumah Hope</span>.
+            </p>
+            <div class="flex gap-4">
+                <a href="#order" class="bg-white text-brand-dark px-8 py-3 rounded-full font-bold hover:bg-brand-gold hover:text-white transition duration-300">
+                    Buy Hope (RM 10)
+                </a>
+                <button onclick="openMeasureModal()" class="border border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white/10 transition">
+                    Find My Size
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="py-16 px-4 max-w-5xl mx-auto">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-serif text-brand-dark mb-4">What if a bracelet could change a life?</h2>
+            <p class="text-lg text-gray-600 leading-relaxed">
+                Handmade by the children of Rumah Hope, each HopeLink bracelet is a symbol of resilience. 
+                100% of profits go directly toward providing shelter, education, and essential support for the children.
+            </p>
+        </div>
+        
+        <div id="order" class="bg-white rounded-2xl shadow-xl overflow-hidden md:flex max-w-4xl mx-auto">
+            <div class="md:w-1/2 h-64 md:h-auto bg-gray-200 relative">
+                <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover">
+            </div>
+            <div class="md:w-1/2 p-8 flex flex-col justify-center">
+                <h3 class="text-2xl font-serif text-brand-dark">The HopeLink Custom</h3>
+                <p class="text-gray-500 mb-4">Custom-fit to your wrist size.</p>
+                <div class="text-3xl font-bold text-brand-green mb-6">RM 10.00</div>
+                
+                <div class="space-y-3">
+                    <button onclick="openMeasureModal()" class="w-full py-3 border-2 border-brand-green text-brand-green rounded-lg font-semibold hover:bg-brand-green hover:text-white transition">
+                        Step 1: Measure Wrist (No Ruler?)
+                    </button>
+                    <a href="https://forms.google.com/YOUR-FORM-LINK-HERE" target="_blank" class="block w-full text-center py-3 bg-brand-dark text-white rounded-lg font-bold hover:bg-black transition shadow-lg">
+                        Step 2: Order Now
+                    </a>
+                </div>
+                <p class="text-xs text-gray-400 mt-4 text-center">Secure order via Google Forms</p>
+            </div>
+        </div>
+    </section>
+
+    <div id="measureModal" class="fixed inset-0 bg-black/80 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl w-full max-w-md p-6 relative">
+            <button onclick="closeMeasureModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">✕</button>
+            
+            <h3 class="text-xl font-bold text-brand-dark mb-2">Find Your Size</h3>
+            
+            <div id="step1">
+                <p class="text-sm text-gray-600 mb-4">We need to calibrate your screen. Grab a standard credit card (or student ID) and place it on the screen.</p>
+                
+                <div class="flex justify-center mb-6">
+                    <div id="cardRef" class="h-32 bg-blue-600 rounded-lg shadow-lg flex items-center justify-center text-white/50 text-sm tracking-widest relative" style="width: 250px;">
+                        CREDIT CARD
+                        <div class="absolute -bottom-6 w-full text-center text-black text-xs">Adjust slider until width matches card ⮕</div>
+                    </div>
+                </div>
+
+                <input type="range" min="150" max="450" value="250" class="w-full accent-brand-green mb-6" id="calibrator" oninput="updateWidth(this.value)">
+                
+                <button onclick="goToStep2()" class="w-full bg-brand-dark text-white py-3 rounded-lg font-bold"> It Matches! Show Ruler </button>
+            </div>
+
+            <div id="step2" class="hidden text-center">
+                <p class="text-sm text-gray-600 mb-4">Wrap a string/paper around your wrist, mark the overlap, and lay it here.</p>
+                
+                <div class="overflow-x-auto mb-6 border border-gray-300 rounded bg-yellow-50 h-24 relative flex items-end" id="rulerContainer">
+                    </div>
+
+                <div class="text-brand-green font-bold text-lg mb-4">Your Size: <span id="sizeResult">--</span> cm</div>
+                <button onclick="closeMeasureModal()" class="w-full border border-gray-300 text-gray-600 py-2 rounded-lg">Done</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Constants
+        const CARD_WIDTH_MM = 85.6; // Standard ISO ID-1 size
+        let pixelsPerMm = 0;
+
+        function updateWidth(val) {
+            document.getElementById('cardRef').style.width = val + 'px';
+        }
+
+        function openMeasureModal() {
+            document.getElementById('measureModal').classList.remove('hidden');
+        }
+        function closeMeasureModal() {
+            document.getElementById('measureModal').classList.add('hidden');
+        }
+
+        function goToStep2() {
+            // Calculate scale
+            const currentWidthPx = document.getElementById('calibrator').value;
+            pixelsPerMm = currentWidthPx / CARD_WIDTH_MM;
+            
+            // Generate Ruler
+            const ruler = document.getElementById('rulerContainer');
+            ruler.innerHTML = ''; // clear
+            
+            // Create ticks for 20cm
+            for(let i=0; i<=200; i++) { // i is mm
+                const tick = document.createElement('div');
+                const isCm = i % 10 === 0;
+                const isHalf = i % 5 === 0;
+                
+                tick.style.position = 'absolute';
+                tick.style.left = (i * pixelsPerMm) + 'px';
+                tick.style.bottom = '0';
+                tick.style.width = '1px';
+                tick.style.backgroundColor = 'black';
+                
+                if (isCm) {
+                    tick.style.height = '20px';
+                    // Add label
+                    const label = document.createElement('span');
+                    label.innerText = i/10;
+                    label.style.position = 'absolute';
+                    label.style.left = (i * pixelsPerMm - 4) + 'px';
+                    label.style.bottom = '22px';
+                    label.style.fontSize = '10px';
+                    ruler.appendChild(label);
+                } else if (isHalf) {
+                    tick.style.height = '12px';
+                } else {
+                    tick.style.height = '6px';
+                }
+                
+                ruler.appendChild(tick);
+            }
+            
+            document.getElementById('step1').classList.add('hidden');
+            document.getElementById('step2').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
